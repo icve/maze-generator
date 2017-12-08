@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
+
 typedef struct cell{
     char t, l;
     int v;
 }cell;
+
+//settings
+int plainText = 0;
 
 int h = 10, w = 20;
 void printRow(char* row, int w);
@@ -14,7 +19,14 @@ int isCompletedCell(cell map[][w], int x, int y);
 int shouldVisit(cell map[][w], int x, int y);
 int randRange(int limit);
 
-int main(){
+int main(int argc, char *argv[]){
+    printf("argc: %d\n", argc);
+    printf("agv1: %s\n", argv[1]);
+
+    if(argc == 2){
+        plainText = !strcmp(argv[1], "-t");
+        printf("pt: %d\n", plainText);
+    }
     // init map
     cell map[h][w];
     for(int i=0; i < h; i++){
@@ -114,18 +126,23 @@ void printMap(cell map[h][w], int h, int w){
         printRow(up, rw);
         printRow(mid, rw);
     }
+    for(int i = 0; i < w; i++){
+        printf("+~");
+    }
+    printf("|");
+    printf("\n");
 }
 
 void printRow(char row[], int w){
    for(int i = 0; i < w; i++){
-       if(row[i] == ' '){
+       if(plainText == 0 && row[i] == ' '){
            printf("\x1B[107m \x1B[49m");
        }
        else{
         printf("%c", row[i]);
         }
    }
-   printf("\n");
+   printf("|\n");
 }
 
 /* return a random number < limit
