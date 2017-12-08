@@ -20,12 +20,9 @@ int shouldVisit(cell map[][w], int x, int y);
 int randRange(int limit);
 
 int main(int argc, char *argv[]){
-    printf("argc: %d\n", argc);
-    printf("agv1: %s\n", argv[1]);
 
     if(argc == 2){
         plainText = !strcmp(argv[1], "-t");
-        printf("pt: %d\n", plainText);
     }
     // init map
     cell map[h][w];
